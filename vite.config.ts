@@ -1,4 +1,3 @@
-import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import mdx from '@mdx-js/rollup';
 import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
@@ -57,63 +56,6 @@ export default defineConfig({
     // MDX must run before the react plugin so JSX in compiled MDX gets transformed.
     { enforce: 'pre', ...mdx({ providerImportSource: '@mdx-js/react' }) },
     tailwindcss(),
-    paraglideVitePlugin({
-      project: './project.inlang',
-      outdir: './src/paraglide',
-      outputStructure: 'message-modules',
-      cookieName: 'PARAGLIDE_LOCALE',
-      strategy: ['url', 'cookie', 'baseLocale'],
-      urlPatterns: [
-        // API endpoints are never locale-prefixed.
-        {
-          pattern: '/api/:path(.*)?',
-          localized: [
-            ['zh', '/api/:path(.*)?'],
-            ['es', '/api/:path(.*)?'],
-            ['pt-BR', '/api/:path(.*)?'],
-            ['fr', '/api/:path(.*)?'],
-            ['de', '/api/:path(.*)?'],
-            ['it', '/api/:path(.*)?'],
-            ['ja', '/api/:path(.*)?'],
-            ['ko', '/api/:path(.*)?'],
-            ['ar', '/api/:path(.*)?'],
-            ['en', '/api/:path(.*)?'],
-          ],
-        },
-        // Bare locale homes match without a trailing-slash redirect.
-        {
-          pattern: '/',
-          localized: [
-            ['en', '/'],
-            ['zh', '/zh'],
-            ['es', '/es'],
-            ['pt-BR', '/pt-br'],
-            ['fr', '/fr'],
-            ['de', '/de'],
-            ['it', '/it'],
-            ['ja', '/ja'],
-            ['ko', '/ko'],
-            ['ar', '/ar'],
-          ],
-        },
-        // Locale-prefixed paths must be checked before the base-locale catch-all.
-        {
-          pattern: '/:path(.*)?',
-          localized: [
-            ['zh', '/zh/:path(.*)?'],
-            ['es', '/es/:path(.*)?'],
-            ['pt-BR', '/pt-br/:path(.*)?'],
-            ['fr', '/fr/:path(.*)?'],
-            ['de', '/de/:path(.*)?'],
-            ['it', '/it/:path(.*)?'],
-            ['ja', '/ja/:path(.*)?'],
-            ['ko', '/ko/:path(.*)?'],
-            ['ar', '/ar/:path(.*)?'],
-            ['en', '/:path(.*)?'],
-          ],
-        },
-      ],
-    }),
     tanstackStart({
       srcDirectory: 'src',
     }),

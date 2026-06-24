@@ -70,7 +70,6 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@inlang/paraglide-js": "^2.18.2",
     "@mdx-js/rollup": "^3.1.1",
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/react-query-devtools": "^5.101.0",
